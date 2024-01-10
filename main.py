@@ -1,4 +1,3 @@
-from pprint import pprint
+from functions import show_operations
 
-
-from functions import load_operations
+show_operations()

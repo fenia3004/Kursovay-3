@@ -33,19 +33,28 @@ a.sort(key=lambda x: x.get('date'), reverse=True)
 
 
 
+def show_operations():
+    for i in a:
+        data_list = i['date']
+        dt = datetime.datetime.fromisoformat(data_list)
+        if i.get('from'):
+            card = i['from']
+            card_number = card.split()[-1]
+            name_card = card.split()[0]
+            private_number = card_number[:6] + (len(card_number[6:-4]) * '*') + card_number[-4:]
+            chunks, chunk_size = len(private_number), len(private_number) // 4
 
-for i in a:
-    data_list = i['date']
-    dt = datetime.datetime.fromisoformat(data_list)
-    card = i['from']
-    card_number = card.split()[-1]
-    name_card = card.split()[0]
-    private_number = card_number[:6] + (len(card_number[6:-4]) * '*') + card_number[-4:]
-    chunks, chunk_size = len(private_number), len(private_number) // 4
-    card_show_to = i['to']
-    name_card_to = card_show_to.split()[0]
-    card_to = i['to'][-4:].rjust(len(i['to'][-6:]), "*")
-    print(dt.date().strftime('%d.%m.%Y'), i['description'])
-    print(name_card, " ".join([private_number[i:i + chunk_size] for i in range(0, chunks, chunk_size)]), '->',name_card_to, card_to)
-    print(i['operationAmount']['amount'], i['operationAmount']['currency']['name'])
-    print()
+            card_show_to = i['to']
+            name_card_to = card_show_to.split()[0]
+            card_to = i['to'][-4:].rjust(len(i['to'][-6:]), "*")
+
+            print(dt.date().strftime('%d.%m.%Y'), i['description'])
+            print(name_card, " ".join([private_number[i:i + chunk_size] for i in range(0, chunks, chunk_size)]), '->',name_card_to, card_to)
+            print(i['operationAmount']['amount'], i['operationAmount']['currency']['name'])
+            print()
+
+        else:
+            print(dt.date().strftime('%d.%m.%Y'), i['description'])
+            print(name_card_to, card_to)
+            print(i['operationAmount']['amount'], i['operationAmount']['currency']['name'])
+            print()
