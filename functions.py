@@ -33,6 +33,7 @@ a.sort(key=lambda x: x.get('date'), reverse=True)
 
 
 
+
 for i in a:
     data_list = i['date']
     dt = datetime.datetime.fromisoformat(data_list)
